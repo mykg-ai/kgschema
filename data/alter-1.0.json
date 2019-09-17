@@ -1,0 +1,11 @@
+{
+  "alter": [
+    {
+      "name": "Monday",
+      "nameZh": "周一"
+    }
+  ],
+  "delete": [
+    "xpath"
+  ]
+}
