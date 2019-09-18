@@ -1,5 +1,6 @@
 cd web
 npm run build
+cp CNAME ./dist
 cd dist
 git init
 git remote add origin git@github.com:mykg-ai/kgs.git
