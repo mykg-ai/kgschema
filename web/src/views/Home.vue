@@ -45,7 +45,11 @@ export default {
         path: `/${item.name}`
       })
     },
-    handleChange(item) {
+    handleChange(event) {
+      console.log(222222)
+      var sug = document.querySelector('.el-autocomplete-suggestion')
+      sug.style.display = 'none'
+      if (this.input_value==this.$route.query.q) return
       this.$router.push({
         path: '/_search',
         query: {q: this.input_value}

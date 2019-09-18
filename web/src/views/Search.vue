@@ -1,13 +1,19 @@
 <template>
 <div class="main">
-  <div class="word" v-for="word in words">
-    <div class="title">
-      <router-link :to="'/'+word.name">
-        {{word.nameZh}} · {{word.name}}
-      </router-link>
+  <div>
+    <div class="word" v-for="word in words">
+      <div class="title">
+        <router-link :to="'/'+word.name">
+          {{word.nameZh}} · {{word.name}}
+        </router-link>
+      </div>
+      <div class="descriptionZh">{{word.descriptionZh}}</div>
+      <div class="description">{{word.description}}</div>
     </div>
-    <div class="descriptionZh">{{word.descriptionZh}}</div>
-    <div class="description">{{word.description}}</div>
+  </div>
+  
+  <div v-show="words.length==0">
+    Ops! 没有相关内容...
   </div>
 </div>
 </template>
@@ -21,15 +27,25 @@ export default {
       words: []
     }
   },
+  watch: {
+    $route(_new, _old) {
+      this.changeRoute(_new)
+    }
+  },
   mounted() {
-    this.$axios.get('_search?q='+this.$route.query.q)
-    .then(res => {
-      this.words = res.data
-    })
-    .catch(error => {
-      console.log(error)
-      this.words = []
-    })
+    this.changeRoute(this.$route)
+  },
+  methods: {
+    changeRoute(route) {
+      this.$axios.get('_search?q='+route.query.q)
+      .then(res => {
+        this.words = res.data
+      })
+      .catch(error => {
+        console.log(error)
+        this.words = []
+      })
+    }
   }
 }
 </script>
