@@ -4,8 +4,172 @@
       "name": "Monday",
       "nameZh": "周一"
     }
+    {
+    	"name": "AMRadioChannel",
+    	"nameZh": "AM频道"
+    }
+    {
+    	"name": "actionAccessSpecification",
+    	"nameZh": "行动必要条件"
+    }
+    {
+    	"name": "ActiveActionStatus",
+    	"nameZh": "行动状态"
+    }
+    {
+    	"name": "AlbumRelease",
+    	"nameZh": "新专辑发布"
+    }
+    {
+    	"name": "AllWheelDriveConfiguration",
+    	"nameZh": "四驱配置"
+    }
+    {
+    	"name": "AldiobookFormat",
+    	"nameZh": "音频书格式"
+    }
+    {
+    	"name": "BedType",
+    	"nameZh": "床类型"
+    }
+    {
+    	"name": "BroadcastFrequencySpecification",
+    	"nameZh": "电台频率"
+    }
+    {
+    	"name": "BroadcastRelease",
+    	"nameZh": "电台发布"
+    }
+    {
+    	"name": "CDFormat",
+    	"nameZh": "CD格式"
+    }
+    {
+    	"name": "CoOp",
+    	"nameZh": "多人模式"
+    }
+    {
+    	"name": "CompilationAlbum",
+    	"nameZh": "无损音乐"
+    }
+    {
+    	"name": "CompletedActionStatus",
+    	"nameZh": "完成状态"
+    }
+    {
+    	"name": "DJMixAlbum",
+    	"nameZh": "DJ混合专辑"
+    }
+    {
+    	"name": "DamagedCondition",
+    	"nameZh": "损坏情况"
+    }
+    {
+    	"name": "DemoAlbum",
+    	"nameZh": "示例专辑"
+    }
+    {
+    	"name": "DigitalAudioTapeFormat",
+    	"nameZh": "电子音频格式"
+    }
+    {
+    	"name": "DigitalFormat",
+    	"nameZh": "电子格式"
+    }
+    {
+    	"name": "Discontinued",
+    	"nameZh": "不再使用"
+
+    }
+    {
+    	"name": "Distillery",
+    	"nameZh": "蒸馏间",
+    	"nickname": "酿酒所"
+    }
+	{
+    	"name": "EBook",
+    	"nameZh": "电子书"
+    }
+    {
+    	"name": "EPRelease",
+    	"nameZh": "EP专辑发布"
+    }
+    {
+    	"name": "EmployerAggregateRating",
+    	"nameZh": "员工累计评价"
+    }
+    {
+    	"name": "EndorsementRating",
+    	"nameZh": "点赞"
+    }
+    {
+    	"name": "EventCancelled",
+    	"nameZh": "活动取消"
+    }
+    {
+    	"name": "EventPostponed",
+    	"nameZh": "事件推迟"
+    }
+    {
+    	"name": "EventRescheduled",
+    	"nameZh": "活动重排"
+    }
+    {
+    	"name": "EventScheduled",
+    	"nameZh": "活动安排"
+    }
+    {
+    	"name": "FAQPage",
+    	"nameZh": "FAQ页面"
+    }
+    {
+    	"name": "FMRadioCChannel",
+    	"nameZh": "FM电台频道"
+    }
+    {
+    	"name": "FailedActionStatus",
+    	"nameZh": "失败动作状态"
+    }
+    {
+    	"name": "FALSE",
+    	"nameZh": "错误"
+    }
+    {
+    	"name": "Female",
+    	"nameZh": "女性",
+    	"nickname": "女人,女"
+    }
+    {
+    	"name": "FourWheelDriveChonfiguration",
+    	"nameZh": "四轮驱动参数"
+    }
+    {
+    	"name": "Friday",
+    	"nameZh": "周五"
+    }
+    {
+    	"name": "FrontWheelDriveConfiguration",
+    	"nameZh": "前轮驱动参数"
+    }
+    {
+    	"name": "GlutenFreeDiet",
+    	"nameZh": "无麸质饮食"
+    }
+    {
+    	"name": "GroupBoardingPolicy",
+    	"nameZh": "团队登记政策"
+    }
+
   ],
   "delete": [
     "xpath"
+    "CassetteFormat"
+    "DVDFormat"
+    "DiabeticDiet"
   ]
 }
+
+    {
+    	"name": "",
+    	"nameZh": ""
+    }
