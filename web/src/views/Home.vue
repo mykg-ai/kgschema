@@ -13,7 +13,7 @@
       <span class="name">{{ item.name }}</span>
     </template>
   </el-autocomplete>
-  <router-view />
+  <router-view :searchLoading="searchLoading" />
 </div>
 </template>
 
@@ -23,6 +23,7 @@ export default {
   data() {
     return {
       input_value: '',
+      searchLoading: true
     }
   },
   mounted() {
@@ -45,11 +46,14 @@ export default {
         path: `/${item.name}`
       })
     },
+    changeSearchLoading() {
+      this.searchLoading = false
+    },
     handleChange(event) {
-      console.log(222222)
       var sug = document.querySelector('.el-autocomplete-suggestion')
       sug.style.display = 'none'
       if (this.input_value==this.$route.query.q) return
+      this.searchLoading = true
       this.$router.push({
         path: '/_search',
         query: {q: this.input_value}

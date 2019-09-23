@@ -1,5 +1,5 @@
 <template>
-<div class="main">
+<div class="main" v-loading="searchLoading">
   <div>
     <div class="word" v-for="word in words">
       <div class="title">
@@ -12,7 +12,7 @@
     </div>
   </div>
   
-  <div v-show="words.length==0">
+  <div v-show="!searchLoading&&words.length==0" style="text-align: center">
     Ops! 没有相关内容...
   </div>
 </div>
@@ -24,9 +24,11 @@ export default {
   name: 'search',
   data() {
     return {
-      words: []
+      words: [],
+      is_loading: true
     }
   },
+  props: ['searchLoading'],
   watch: {
     $route(_new, _old) {
       this.changeRoute(_new)
@@ -37,6 +39,8 @@ export default {
   },
   methods: {
     changeRoute(route) {
+      var sug = document.querySelector('.el-autocomplete-suggestion')
+      sug.style.display = 'none'
       this.$axios.get('_search?q='+route.query.q)
       .then(res => {
         this.words = res.data
@@ -44,6 +48,11 @@ export default {
       .catch(error => {
         console.log(error)
         this.words = []
+      })
+      .then(() => {
+        // this.searchLoading = false
+        console.log(9999)
+        this.$parent.changeSearchLoading()
       })
     }
   }

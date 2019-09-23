@@ -8,10 +8,10 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 import { faGithub, faLinkedin, faWeixin, faGalacticSenate } from '@fortawesome/free-brands-svg-icons'
-import { faPaw } from '@fortawesome/free-solid-svg-icons'
+import { faPaw, faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons'
 library.add(
   faGithub, faLinkedin, faWeixin, faGalacticSenate,
-  faPaw
+  faPaw, faExternalLinkAlt
 )
 
 Vue.prototype.$axios = axios

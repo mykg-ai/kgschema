@@ -6,7 +6,7 @@
     {{myword.descriptionZh}}</p>
   <p class="description">英文解释：
     {{myword.description}}</p>
-  <p v-if="myword.super!=''">父类：<router-link :to='myword.super.name'>
+  <p v-if="myword.super!=''">父类：<router-link :to="'/' +myword.super.name">
     {{myword.super.nameZh+' ('+myword.super.name+')'}}</router-link></p>
 </div>
 </template>
@@ -18,17 +18,25 @@ export default {
       myword: null
     }
   },
+  watch: {
+    $route(_new, _old) {
+      this.changeRoute(_new)
+    }
+  },
   mounted() {
-    this.$axios.get('/'+this.$route.params.word)
-    .then(res => {
-      this.myword = res.data
-    })
-    .catch(error => {
-      console.log(error)
-      this.myword = null
-    })
+    this.changeRoute(this.$route)
   },
   methods: {
+    changeRoute(route) {
+      this.$axios.get('/'+this.$route.params.word)
+      .then(res => {
+        this.myword = res.data
+      })
+      .catch(error => {
+        console.log(error)
+        this.myword = null
+      })
+    }
   }
 }
 </script>>
