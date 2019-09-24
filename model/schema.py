@@ -8,6 +8,7 @@ import csv
 import os
 import json
 import pickle
+import re
 
 _KGS_NAMESPACE = 'http://kgs.mykg.ai'
 _SCHEMA_NAMESPACE = 'http://schema.org'
@@ -29,7 +30,10 @@ class Schema:
             if not os.path.exists(_data_dir + version):
                 os.mkdir(_data_dir + version)
             if not os.path.exists(_data_dir+self.version+_KGS_CSV):
-                self._generate_csv(kwargs['types_path'], kwargs['properties_path'], kwargs['cnschema_path'])
+                self._generate_csv(kwargs['types_path'],
+                                   kwargs['properties_path'],
+                                   kwargs['cnschema_path'],
+                                   kwargs['alter_path'])
             self.class_list, self.class_super, self.class_without_super, self.class_zip, self.link_list \
                 = self._generate_lists()
         else:
@@ -52,7 +56,7 @@ class Schema:
     def get_link_list(self):
         return json.dumps(self.link_list, indent=2, ensure_ascii=False)
 
-    def _generate_csv(self, types_path: str, properties_path: str, cnschema_path: str):
+    def _generate_csv(self, types_path: str, properties_path: str, cnschema_path: str, alter_path: str):
         with open(_data_dir+self.version+_KGS_CSV, 'w+') as rf:
             writer = csv.DictWriter(rf, fieldnames=_KGS_FIELD_NAMES)
             writer.writeheader()
@@ -61,13 +65,17 @@ class Schema:
                 for row in reader:
                     kgs = type2kgs(row)
                     kgs = self._fill_zh(_data_dir+cnschema_path, kgs)
-                    writer.writerow(kgs)
+                    kgs = self._alter_kgs(_data_dir+alter_path, kgs)
+                    if kgs is not None:
+                        writer.writerow(kgs)
             with open(_data_dir+properties_path, 'r') as f:
                 reader = csv.DictReader(f)
                 for row in reader:
                     kgs = property2kgs(row)
                     kgs = self._fill_zh(_data_dir+cnschema_path, kgs)
-                    writer.writerow(kgs)
+                    kgs = self._alter_kgs(_data_dir+alter_path, kgs)
+                    if kgs is not None:
+                        writer.writerow(kgs)
 
     def _generate_lists(self) -> ([], [], [], [], []):
         class_list = []
@@ -97,6 +105,27 @@ class Schema:
                     kgs['nameZh'] = row['nameZh']
                     kgs['nickname'] = row['alternateName']
                     kgs['descriptionZh'] = row['descriptionZh']
+        return kgs
+
+    @staticmethod
+    def _alter_kgs(alter_path: str, kgs: dict):
+        with open(alter_path, 'r') as f:
+            alter = json.load(f)
+            if kgs['name'] in alter['delete']:
+                return None
+            for d in alter['alter']:
+                if d['name'] == kgs['name']:
+                    for k in d:
+                        if k in kgs:
+                            kgs[k] = d[k]
+            for k in ['super', 'property', 'supersededBy', 'domain', 'range', 'inverseOf']:
+                if k in kgs:
+                    props = re.split('[ ，,]+', kgs[k])
+                    for delete in alter['delete']:
+                        for prop in props:
+                            if delete in prop:
+                                props.remove(prop)
+                    kgs[k] = ', '.join(props)
         return kgs
 
 
@@ -200,10 +229,11 @@ def find_lower(class_dict: dict, c2find: dict) -> dict:
 
 
 if __name__ == '__main__':
-    schema = Schema(version='1.0',
+    schema = Schema(version='1.1',
                     types_path='schema-types-3.9.csv',
                     properties_path='schema-properties-3.9.csv',
-                    cnschema_path='cns-core-3.4.csv')
+                    cnschema_path='cns-core-3.4.csv',
+                    alter_path='alter-1.0.json')
     # schema = Schema(version='1.0')
-    print(schema.get_class_zip())
-
+    # print(schema.get_class_zip())
+    print('Done!')
